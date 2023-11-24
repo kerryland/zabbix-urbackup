@@ -1,0 +1,307 @@
+zabbix_export:
+  version: '5.4'
+  date: '2022-02-17T15:13:45Z'
+  groups:
+    -
+      uuid: 52d2f14961d54e07a34333e3ce55a584
+      name: 'Urbackup Servers'
+  templates:
+    -
+      uuid: bd8d612f43044d08b59987ba635dc9d9
+      template: Urbackup
+      name: Urbackup
+      groups:
+        -
+          name: 'Urbackup Servers'
+      items:
+        -
+          uuid: 43735c43675f44b8b2ad0e3b0aa7e7af
+          name: 'urbackup discovery item'
+          key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+          delay: 30m
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: Backup
+      discovery_rules:
+        -
+          uuid: 5f3898cfaea941b58e5d86dd74d568c3
+          name: 'urbackup discovery'
+          type: DEPENDENT
+          key: urbackup.discovery
+          delay: '0'
+          item_prototypes:
+            -
+              uuid: cfc80c4a6cb24832a9828d3b2c1b3b75
+              name: 'urbackup client version of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.client_version_string[{#U_ID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..client_version_string.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: b9733546c4f14d3db02d0937bb23bc3f
+              name: 'urbackup file status of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.filestatus[{#U_ID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..file_ok.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: 3564f83e6abb4292b7debb21dbea9f9d
+              name: 'urbackup file disabled status of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.file_disabled[{#U_ID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..file_disabled.first()'
+                  error_handler: CUSTOM_VALUE
+                  error_handler_params: 'false'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: ba9d0d8bff484cee99ae65109dfbafcf
+              name: 'urbackup image disabled status of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.image_disabled[{#U_ID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..image_disabled.first()'
+                  error_handler: CUSTOM_VALUE
+                  error_handler_params: 'false'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: 3d75409b2dd84eb3b1e1888c65449795
+              name: 'urbackup image backup status of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.image_ok[{#U_ID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..image_ok.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: bf014f9f0f4b45148b249610570577e5
+              name: 'urbackup last file backup of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.lastbackup[{#U_ID}]'
+              delay: '0'
+              units: unixtime
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..lastbackup.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: dd89d83a1ff44bd1af471233c518150b
+              name: 'urbackup last image backup of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.lastbackup_image[{#U_ID}]'
+              delay: '0'
+              units: unixtime
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..lastbackup_image.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: 60f6666e168b4a4c81aa85fa143731d3
+              name: 'urbackup last seen of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.lastseen[{#U_ID}]'
+              delay: '0'
+              units: unixtime
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..lastseen.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: 39d0a371aa294493b1702d385a2e8555
+              name: 'urbackup number of file backup errors on {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.last_filebackup_issues[{#U_ID}]'
+              delay: '0'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..last_filebackup_issues.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+              trigger_prototypes:
+                -
+                  uuid: 7d898f6bec6e47018c595dae1e64c30a
+                  expression: 'last(/Urbackup/urbackup.last_filebackup_issues[{#U_ID}])>=1'
+                  name: 'Completed file backup with issues on {#U_NAME}'
+                  url: '{$UR_URL_1}'
+                  priority: HIGH
+            -
+              uuid: fafbb88c19f144a8b23d4a61d8a6fe9a
+              name: 'urbackup client online status of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.online[{#U_ID}]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..online.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+            -
+              uuid: ff7db852e65449bcb5e70ad75551f66d
+              name: 'urbackup status of {#U_NAME}'
+              type: DEPENDENT
+              key: 'urbackup.status[{#U_ID}]'
+              delay: '0'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == {#U_ID})]..status.first()'
+              master_item:
+                key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+              tags:
+                -
+                  tag: Application
+                  value: Backup
+          trigger_prototypes:
+            -
+              uuid: 101f9fb1031647ac8fef1a856f0c2eef
+              expression: 'last(/Urbackup/urbackup.filestatus[{#U_ID}])="false" and last(/Urbackup/urbackup.file_disabled[{#U_ID}])="false"'
+              name: 'No recent backup file on {#U_NAME}'
+              url: '{$UR_URL_1}'
+              priority: HIGH
+            -
+              uuid: f29f9090def74ce796b7db360a7dfaf6
+              expression: 'last(/Urbackup/urbackup.image_ok[{#U_ID}])="false" and last(/Urbackup/urbackup.image_disabled[{#U_ID}])="false"'
+              name: 'No recent backup image on {#U_NAME}'
+              url: '{$UR_URL_1}'
+              priority: HIGH
+          master_item:
+            key: 'urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#U_DELETE_PENDING}'
+              path: $.delete_pending
+            -
+              lld_macro: '{#U_FILE_OK}'
+              path: $.file_ok
+            -
+              lld_macro: '{#U_ID}'
+              path: $.id
+            -
+              lld_macro: '{#U_IMAGE_OK}'
+              path: $.image_ok
+            -
+              lld_macro: '{#U_IP}'
+              path: $.ip
+            -
+              lld_macro: '{#U_LASTBACKUP_DATE}'
+              path: $.lastbackup
+            -
+              lld_macro: '{#U_LASTBACKUP_IMAGE}'
+              path: $.lastbackup_image
+            -
+              lld_macro: '{#U_LAST_FILE_ISSUE}'
+              path: $.last_filebackup_issues
+            -
+              lld_macro: '{#U_NAME}'
+              path: $.name
+      macros:
+        -
+          macro: '{$UR_PASSWORD}'
+          value: password
+        -
+          macro: '{$UR_STATUS_FILE}'
+          value: /tmp/urbackup.status
+        -
+          macro: '{$UR_URL}'
+          value: 'http://127.0.0.1:55414/x'
+        -
+          macro: '{$UR_URL_1}'
+          value: 'http://127.0.0.1:55414'
+        -
+          macro: '{$UR_USER}'
+          value: admin
