@@ -42,9 +42,10 @@ IndexError: list index out of range]
     - Click "Macros"
     - Click "Inherited and host macros"
     - Change the values for `{$UR_PASSWORD}`, `{$UR_URL}` and `{$UR_USER}` to match your environment
+7. Edit the "Urbackup: urbackup discovery item" associated with your UrBackup host.
+   - This requires clicking 3 dots and selecting "Item" from the menu.
+   - Click "Preprocessing"
+   - Click "Clone" (no idea why, but you can't add any preprocessing steps otherwise)
+   - Click "Add" link (not the "Add" button)
+   - Define a "Name" of "JSONPath" and a "Parameters" of (something like: `$[?(@.lastseen < 1700000000)]..lastbackup` )
 
-
-In Zabbix, create an "Item" of type "[External Check](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/external)" against the UrBackup Server with a "Key" like this:
-`zabbix-urbackup/urbackup-discovery.py
-eg: `UserParameter=mysql.ping,mysqladmin -uroot ping | grep -c alive`
-* An [External Check](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/external), eg: `check_oracle.sh["-h","{HOST.CONN}"]`
