@@ -48,5 +48,8 @@ IndexError: list index out of range]
    - Click "Clone" (no idea why, but you can't add any preprocessing steps otherwise)
    - Click "Add" link (not the "Add" button)
    - Define a "Name" of "JSONPath" and a "Parameters" of (something like: `$[?(@.lastseen < 1700000000)]..lastbackup` )
-     ** MIGHT NOT NEED MUCH OF THE ABOVE BECAUSE ITEMS HAVE APPEARED MAGICALLY -- NOT SURE IF I WANT THAT!!! -- PERHAPS JUST A NUMBER OF HOSTS WITH BACKUP PROBLEMS IS ENOUGH **
+  
+  
+# MIGHT NOT NEED MUCH OF THE ABOVE BECAUSE ITEMS HAVE APPEARED MAGICALLY -- NOT SURE IF I WANT THAT!!! -- PERHAPS JUST A NUMBER OF HOSTS WITH BACKUP PROBLEMS IS ENOUGH 
+# ALSO, THE JSONPATH LOGIC IS TIED TO THE LOCATION WITHIN THE ARRAY OF RESULTS, WHICH SURELY MAY CHANGE: `$[?(@.id == 4)]..image_ok.first()`
 
