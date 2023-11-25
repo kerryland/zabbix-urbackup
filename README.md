@@ -32,12 +32,16 @@ IndexError: list index out of range]
    - Menu: `Configuration | Templates`
    - `Import` button in top-right corner
    - Select the `Urbackup.yaml` file you downloaded earlier
-2. Find your UrBackup server in Zabbix UI (Menu: `Configuration | Hosts`), and click "Items", then "Create Item" (button top right). [ref. official docs](https://www.zabbix.com/documentation/current/en/manual/config/items/item)
-  - **Name:** urbackup discovery item
-  - **Key:** urbackup.discovery[{$UR_URL},{$UR_USER},{$UR_PASSWORD}]
-  - **Update Interval:** 4h
-  - Test the configuration with properties appropriate for your urbackup server. Note the URL ends in `/x` for some obscure reason. eg: http://192.168.1.25:55414/x
-    
+  
+# Step 4. Configure the UrBackup host in Zabbix
+2. Find your UrBackup server in Zabbix UI (Menu: `Configuration | Hosts`), and add the "Urbackup" template to the host, add click "Update".
+3. Click "Test" and configure the "Macros" fields with your Urbackup server URL, username and password. Note the URL ends in `/x` for some obscure reason. eg: `http://127.0.0.1:55414/x`
+4. Click "Get value and test", which should result in a "result" looking something like this: `[{"client_version_string": "2.5.21", "delete_pending": "", "file_ok": true...`
+5. Click "Update" again to save these changes to the Host's Item.
+6. Define Macros for the host.
+    - Click "Macros"
+    - Click "Inherited and host macros"
+    - Change the values for `{$UR_PASSWORD}`, `{$UR_URL}` and `{$UR_USER}` to match your environment
 
 
 In Zabbix, create an "Item" of type "[External Check](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/external)" against the UrBackup Server with a "Key" like this:
