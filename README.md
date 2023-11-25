@@ -48,4 +48,5 @@ IndexError: list index out of range]
    - Click "Clone" (no idea why, but you can't add any preprocessing steps otherwise)
    - Click "Add" link (not the "Add" button)
    - Define a "Name" of "JSONPath" and a "Parameters" of (something like: `$[?(@.lastseen < 1700000000)]..lastbackup` )
+     ** MIGHT NOT NEED MUCH OF THE ABOVE BECAUSE ITEMS HAVE APPEARED MAGICALLY -- NOT SURE IF I WANT THAT!!! -- PERHAPS JUST A NUMBER OF HOSTS WITH BACKUP PROBLEMS IS ENOUGH **
 
