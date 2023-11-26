@@ -1,7 +1,9 @@
 # zabbix-urbackup
-How to monitor UrBackup clients with Zabbix.
+How to monitor [UrBackup](https://www.urbackup.org/) clients with [Zabbix](https://www.zabbix.com/).
 
-This code originally came from a [Zabbix forum](https://www.zabbix.com/forum/zabbix-help/409665-newbie-monitoring-urbackup) post by [tmueko](https://www.zabbix.com/forum/member/316499-tmueko). These instructions, written against Zabbix 6.4, are my fault -- please let me know if I've got something wrong.
+This code originally came from a [Zabbix forum](https://www.zabbix.com/forum/zabbix-help/409665-newbie-monitoring-urbackup) post by [tmueko](https://www.zabbix.com/forum/member/316499-tmueko), plus a copy of the [urbackup api by uroni](https://github.com/uroni/urbackup-server-python-web-api-wrapper).
+
+These instructions are my fault -- please let me know if I've got something wrong. I am a million miles away from being an experienced Zabbix user and found installation process "quirky", hence this document. I do note that Zabbix 6.4 has definite usability improvements over 6.2, so well done to you folks.
 
 # Step 1. Install some bits
 1. Install a Zabbix Agent on your UrBackup server, if it's not there already (which would surprise me!)
