@@ -8,12 +8,13 @@ These instructions are my fault -- please let me know if I've got something wron
 # Step 1. Install some bits
 1. Install a Zabbix Agent on your UrBackup server, if it's not there already (which would surprise me!)
 1. Install a Python on your UrBackup server, if it's not there already
-1. Install this code on your UrBackup server
+1. Install [this code](https://github.com/kerryland/zabbix-urbackup/releases/), into `/opt`, on your UrBackup server, or grab it via git
 ```
 cd /opt
 git clone git@github.com:kerryland/zabbix-urbackup.git
 chmod +x  /opt/zabbix-urbackup/urbackup-discovery.py
 ```
+
 # Step 2. Tell Zabbix Agent about the script
 1. Add a "User Parameter" to the Zabbix Agent on the UrBackup server:
 `echo 'UserParameter=urbackup.discovery[*],/opt/zabbix-urbackup/urbackup-discovery.py $1 $2 $3' >> /etc/zabbix/zabbix_agentd.conf`
